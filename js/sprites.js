@@ -29,7 +29,8 @@ const P={
  snake:R('#14280c','#2f5a16','#62962a','#b4d850'),hood:R('#3a2a06','#8a6a12','#d0aa30','#f4dc70'),
  vaka:R('#0e1816','#1f3a32','#356250','#5f9472'),vakaD:R('#0a1210','#152a24','#244636','#3a6450'),vbelly:R('#2e3c22','#58743e','#8aa862','#b6cc88'),
  bone:R('#5e5646','#ada384','#e6dec2','#ffffff'),cloth:R('#240610','#521222','#86223a','#b44a5e'),rock:R('#24202c','#46404f','#6e6882','#9c96b0'),
- mango:R('#6a2a00','#d06a10','#f6b030','#fff0a0'),leaf:R('#10300c','#246a1c','#4aa232','#8ad44a'),lotus:R('#6a1a4a','#c04a8a','#f08ac0','#ffe0f0')
+ mango:R('#6a2a00','#d06a10','#f6b030','#fff0a0'),leaf:R('#10300c','#246a1c','#4aa232','#8ad44a'),lotus:R('#6a1a4a','#c04a8a','#f08ac0','#ffe0f0'),
+ gmango:R('#8a5200','#e0a020','#ffe070','#ffffff')
 };
 const SC=new Map();function spr(k,fn){let c=SC.get(k);if(!c){c=fn();SC.set(k,c)}return c}
 const WF=new WeakMap();function whiteOf(c){let w=WF.get(c);if(!w){w=mk(c.width,c.height);const x=w.getContext('2d');x.drawImage(c,0,0);x.globalCompositeOperation='source-in';x.fillStyle='#fff';x.fillRect(0,0,w.width,w.height);WF.set(c,w)}return w}
@@ -41,10 +42,11 @@ function makeRock(){const s=new Spr(14,14);s.ell(7,7,6,5.5,P.rock,0.1);s.p(5,5,P
 function makeOrb(i){const s=new Spr(16,16);s.ell(8,8,6.5,6.5,P.gold,0.15+Math.sin(i)*0.1);s.ell(8,8,3,3,R('#ffe0a0','#ffffff','#ffffff'),0.4);return s.outline(C('#5a2a00')).cv()}
 function makeHeartPk(){const s=new Spr(14,13);s.ell(4.5,4.5,3.8,3.8,P.red,0.2);s.ell(9.5,4.5,3.8,3.8,P.red,0.2);s.poly([[1,5],[13,5],[7,12]],P.red,0.1);return s.outline().cv()}
 function makeMango(){const s=new Spr(12,14);s.ell(6,8,4.6,5.5,P.mango,0.1);s.cap(6,3,8,0,0.8,P.wood);s.ell(9,2,2.6,1.4,P.leaf);return s.outline().cv()}
+function makeGMango(){const s=new Spr(12,14);s.ell(6,8,4.6,5.5,P.gmango,0.1);s.cap(6,3,8,0,0.8,P.wood);s.ell(9,2,2.6,1.4,P.leaf);return s.outline().cv()}
 function makeQuiverPk(){const s=new Spr(14,16);s.rect(3,4,8,11,P.wood);s.rect(3,4,8,2,P.gold);for(let i=0;i<3;i++){s.line(4+i*3,0,4+i*3,4,P.wood[3]);s.p(4+i*3,0,P.wht[2])}return s.outline().cv()}
 function makeHeartUI(full){const s=new Spr(9,8);const r=full?P.red:R('#2a2030','#3e3046','#544460');s.ell(2.5,2.5,2.2,2.2,r,0.3);s.ell(6.5,2.5,2.2,2.2,r,0.3);s.poly([[0,3],[9,3],[4.5,8]],r,0.1);return s.outline().cv()}
 const IMG={};
-function initImgs(){IMG.arrow=makeArrow();IMG.rock=makeRock();IMG.orb=[0,1,2,3].map(makeOrb);IMG.heart=makeHeartPk();IMG.mango=makeMango();IMG.quiver=makeQuiverPk();IMG.venom=makeVenom();IMG.hF=makeHeartUI(true);IMG.hE=makeHeartUI(false)}
+function initImgs(){IMG.arrow=makeArrow();IMG.rock=makeRock();IMG.orb=[0,1,2,3].map(makeOrb);IMG.heart=makeHeartPk();IMG.mango=makeMango();IMG.gmango=makeGMango();IMG.quiver=makeQuiverPk();IMG.venom=makeVenom();IMG.hF=makeHeartUI(true);IMG.hE=makeHeartUI(false)}
 function foeImg(e){if(e.t==='imp'){const fr=!e.ground?'j':String((tt*6|0)%2);return spr('imp'+fr,()=>impSprite(fr))}
  if(e.t==='vetala'){const fr=e.st==='hang'?'h':String((tt*4|0)%2);return spr('vet'+fr,()=>vetalaSprite(fr))}
  const fr=e.st==='spit'?'s':String((tt*3|0)%2);return spr('yak'+fr,()=>yakshaSprite(fr))}

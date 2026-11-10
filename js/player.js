@@ -24,6 +24,7 @@ function afterDeath(){G.lives--;G.arrows=G.p.arrows;if(G.lives<=0){state='over';
  const wasBoss=G.bossOn;startLife(false);if(wasBoss)toast('Vel rises again. Patience.',2.5)}
 function pickup(e){const p=G.p;burst(e.x,e.y,'#ffe070',8,60);
  if(e.t==='mango'){G.score+=50;sfx('pick')}
+ else if(e.t==='gmango'){p.hp=Math.min(TUNE.hearts,p.hp+1);G.score+=50;sfx('heart')}
  else if(e.t==='heart'){p.hp=Math.min(TUNE.hearts,p.hp+1);sfx('heart');G.score+=50}
  else if(e.t==='quiver'){p.arrows=Math.min(TUNE.quiverMax,p.arrows+TUNE.pack);sfx('ammo');toast('+'+TUNE.pack+' arrows',1.4)}
  else if(e.t==='orb'){p.deva=TUNE.deva;sfx('devaOn');flash=0.8;toast('Deva light! Great sword and endless arrows for 30 seconds.',3)}}

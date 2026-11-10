@@ -21,6 +21,7 @@ function buildMap(){MAP=new Uint8Array(COLS*ROWS);
  [24,47,62,88,113,124,142,167,188,215,242,263,286,320,344,377].forEach((c,i)=>E(i%4===3?'heart':'mango',c,{row:i%2?4:5}));
  [44,108,176,226,272,334,392].forEach(c=>E('quiver',c));
  [128,286].forEach(c=>E('orb',c,{row:3}));
+ E('gmango',116,{row:5}); E('gmango',400,{row:5});
  DECOR=[];const rr=rng(7);for(let c=6;c<400;c+=3+((rr()*6)|0)){const h=surf(c);if(h<ROWS)DECOR.push({c,k:(rr()*5)|0})}}
 function tileAt(c,r){if(c<0||c>=COLS)return 3;if(r<0)return 0;if(r>=ROWS)return 0;return MAP[r*COLS+c]}
 function solid(c,r){const t=tileAt(c,r);return t===1||t===3}
